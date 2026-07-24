@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: ledgerlock-agent
+    runtime: docker
+    dockerfilePath: ./agent/Dockerfile
+    dockerContext: ./agent
+    plan: starter
+    region: oregon
+    healthCheckPath: /health
+    envVars:
+      - key: GOOGLE_GENERATIVE_AI_API_KEY
+        sync: false
+      - key: CHAT_MODEL
+        value: gemini-flash-latest
+      - key: EMBEDDING_MODEL
+        value: gemini-embedding-001
+      - key: AGENT_API_KEY
+        sync: false
+      - key: RATE_LIMIT_PER_MINUTE
+        value: "30"
+    autoDeploy: true

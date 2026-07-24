@@ -1,0 +1,61 @@
+{
+  "documents": [
+    {
+      "id": "5b6bd051-7c3e-4f4e-b053-90dd0f9526e1",
+      "file_name": "sample-financial-report.pdf",
+      "page_count": 1,
+      "status": "ready",
+      "created_at": "2026-07-23T12:40:38.797Z"
+    },
+    {
+      "id": "b0b733b4-7454-4dc0-a12e-ffe7f687134d",
+      "file_name": "sample-financial-report.pdf",
+      "page_count": 1,
+      "status": "ready",
+      "created_at": "2026-07-23T12:37:55.747Z"
+    },
+    {
+      "id": "17ae9156-f9ed-4e90-923d-6384cc464cb6",
+      "file_name": "sample-financial-report.pdf",
+      "page_count": 1,
+      "status": "ready",
+      "created_at": "2026-07-23T12:01:45.772Z"
+    },
+    {
+      "id": "45356ca2-91c8-4e1c-9fa9-171822cd9dc9",
+      "file_name": "sample-financial-report.pdf",
+      "page_count": 1,
+      "status": "ready",
+      "created_at": "2026-07-23T11:59:17.753Z"
+    },
+    {
+      "id": "fc33e1e6-4860-450e-92dc-27313a956315",
+      "file_name": "sample-financial-report.pdf",
+      "page_count": 1,
+      "status": "ready",
+      "created_at": "2026-07-23T11:53:41.916Z"
+    },
+    {
+      "id": "a9a2a4ce-97ee-4cdf-b973-176498d6383b",
+      "file_name": "sample-financial-report.pdf",
+      "page_count": 1,
+      "status": "ready",
+      "created_at": "2026-07-23T11:47:05.003Z"
+    },
+    {
+      "id": "0cde3cb2-00ca-4b91-bb80-c7cb095657b0",
+      "file_name": "sample-financial-report.pdf",
+      "page_count": 1,
+      "status": "ready",
+      "created_at": "2026-07-23T11:26:52.276Z"
+    },
+    {
+      "id": "f9bd6353-bca5-457b-b3f4-a42291a0aee6",
+      "file_name": "sample-financial-report.pdf",
+      "page_count": 1,
+      "status": "ready",
+      "created_at": "2026-07-23T11:24:27.298Z"
+    }
+  ],
+  "queries": []
+}
