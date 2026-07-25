@@ -19,10 +19,11 @@ This document explains how to deploy LedgerLock on Vercel.
 
 ### 2. Configure Project Settings
 
-- **Framework Preset**: Next.js (automatically detected)
-- **Root Directory**: Leave as default `./` (or optionally set to `frontend`)
-- **Build Command**: `npm run build` (auto-detected via vercel.json)
-- **Install Command**: `npm install` (auto-detected via vercel.json)
+**IMPORTANT**: You MUST configure the Root Directory for Vercel to detect Next.js.
+- **Framework Preset**: Next.js (automatically detected once root directory is set)
+- **Root Directory**: **MUST SET TO `frontend`** (Click "Edit" next to Root Directory and type `frontend`)
+- **Build Command**: Leave default (Vercel will run `npm run build` inside frontend)
+- **Install Command**: Leave default (Vercel will run `npm install` inside frontend)
 
 ### 3. Set Environment Variables
 
@@ -93,7 +94,7 @@ Then update `AGENT_URL` env variable with your backend service URL.
 
 ### 404 Error
 
-- Verify `vercel.json` contains `"rootDirectory": "frontend"`
+- Verify **Root Directory** is set to `frontend` in Vercel settings.
 - Check Vercel logs for build errors
 - Ensure all environment variables are set
 
