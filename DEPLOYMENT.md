@@ -17,13 +17,12 @@ This document explains how to deploy LedgerLock on Vercel.
 4. Paste: `https://github.com/Rajakamran12/LedgerLock---Financial-Advisor.git`
 5. Click "Continue"
 
-### 2. Configure Project
+### 2. Configure Project Settings
 
-- **Project Name**: `ledger-lock-financial-advisor`
-- **Framework Preset**: Next.js (auto-detected)
-- **Root Directory**: `./frontend` (auto-detected via vercel.json)
-- **Build Command**: `npm run build` (auto-filled)
-- **Environment**: Leave as default
+- **Framework Preset**: Next.js (automatically detected)
+- **Root Directory**: Leave as default `./` (or optionally set to `frontend`)
+- **Build Command**: `npm run build` (auto-detected via vercel.json)
+- **Install Command**: `npm install` (auto-detected via vercel.json)
 
 ### 3. Set Environment Variables
 
@@ -64,7 +63,7 @@ NEXT_PUBLIC_APP_URL=https://ledger-lock-financial-advisor.vercel.app
 
 ## Files in This Deployment
 
-- `vercel.json` - Vercel configuration (specifies root directory as `./frontend`)
+- `.vercelignore` - Tells Vercel which files to ignore during build
 - `frontend/.env.production` - Production environment file (template with placeholders)
 - `frontend/.gitignore` - Git ignore file (prevents committing secrets)
 
