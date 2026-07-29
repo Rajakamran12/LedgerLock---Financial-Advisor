@@ -6,6 +6,7 @@ assumes normalized input for consistent similarity scores.
 """
 from __future__ import annotations
 
+import asyncio
 import math
 
 from google import genai
@@ -31,12 +32,22 @@ def _normalize(vector: list[float]) -> list[float]:
 
 
 async def embed_text(text: str) -> list[float]:
-    """Returns a normalized 1536-dim embedding for the given text."""
+    """Returns a normalized 1536-dim embedding for the given text.
+
+    The google-genai SDK's embed_content() is synchronous and blocks the
+    calling thread. We offload it to a thread-pool worker via
+    asyncio.to_thread so the FastAPI event loop stays responsive while
+    processing large documents with multiple concurrent chunks.
+    """
     client = _get_client()
-    result = client.models.embed_content(
-        model=settings.embedding_model,
-        contents=text,
-        config=types.EmbedContentConfig(output_dimensionality=1536),
-    )
-    raw = result.embeddings[0].values
-    return _normalize(list(raw))
+
+    def _call() -> list[float]:
+        result = client.models.embed_content(
+            model=settings.embedding_model,
+            contents=text,
+            config=types.EmbedContentConfig(output_dimensionality=1536),
+        )
+        raw = result.embeddings[0].values
+        return _normalize(list(raw))
+
+    return await asyncio.to_thread(_call)

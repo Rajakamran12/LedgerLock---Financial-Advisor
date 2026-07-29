@@ -30,7 +30,7 @@ async function callAgent<T>(
 ): Promise<T> {
   const attempt = async () => {
     const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 25_000);
+    const timeout = setTimeout(() => controller.abort(), 60_000);
     try {
       return await fetch(`${AGENT_URL}${path}`, {
         method: "POST",
