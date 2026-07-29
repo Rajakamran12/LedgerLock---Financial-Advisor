@@ -1,5 +1,5 @@
 import { randomUUID } from "node:crypto";
-import { NextRequest, NextResponse } from "next/server";
+import { NextRequest, NextResponse, after } from "next/server";
 import { getDocumentProxy, extractText } from "unpdf";
 import {
   requireUser,
@@ -11,6 +11,10 @@ import { checkRateLimit } from "@/lib/rate-limit";
 import { ALLOWED_UPLOAD_MIME_TYPES, MAX_UPLOAD_BYTES } from "@/lib/validation";
 import { chunkDocument } from "@/lib/chunking";
 import { embedText } from "@/lib/agent";
+
+// Allow up to 60 s for the embedding pipeline on large PDFs.
+// Vercel Hobby plan caps this at 60 s; Pro plan allows up to 800 s.
+export const maxDuration = 60;
 
 const STORAGE_BUCKET = "documents";
 const MIN_EXTRACTED_CHARS = 50; // below this, treat as a scanned/image-only PDF
@@ -164,11 +168,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: insertError.message }, { status: 500 });
     }
 
-    // Parse, chunk, and embed. Failures here mark the document 'failed'
-    // rather than bubbling up, since the row already exists for the user
-    // to see in their document list.
-    processDocument(documentId, bytes).catch((err) => {
-      console.error(`processDocument(${documentId}) failed`, err);
+    // Parse, chunk, and embed. Use after() so Vercel's waitUntil keeps the
+    // serverless function alive after the response is sent. Without this,
+    // Vercel terminates the function the moment NextResponse is returned,
+    // killing the background promise and marking every document as failed.
+    after(async () => {
+      try {
+        await processDocument(documentId, bytes);
+      } catch (err) {
+        console.error(`processDocument(${documentId}) failed`, err);
+      }
     });
 
     return NextResponse.json({ document }, { status: 201 });
